@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Карта парка ДГТУ</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css">
+		<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css"/>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
+		<script src="MousePosition.js"></script>
+		<link rel="stylesheet" rel="nofollow" href="MousePosition.css" />
+		<script src="MeasuringTool.js"></script>
+		<link rel="stylesheet" rel="nofollow" href="MeasuringTool.css" />
+		<style>
+			#map {
+			position: absolute;
+			top: 0; left: 0; right: 0; bottom: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="map" width="100%" height="100%"></div>
+		<script type='text/javascript'>
+ 
+			var map = L.map('map').setView([47.24100, 39.71084], 17);
+ 
+				L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				}).addTo(map);
+	
+				L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYWxleGVpMTIzIiwiYSI6ImNqemw3cmmwazawbwizam51b2s2cxk0mmiifq.A8ppevOJooJcVbRnk0fK4Q', {
+				attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+				id: 'mapbox.streets',
+				maxZoom: 20,
+				accessToken: 'pk.eyJ1IjoiYWxleGVpMTIzIiwiYSI6ImNqemw3cmmwazawbwizam51b2s2cxk0mmiifq.A8ppevOJooJcVbRnk0fK4Q',
+				}).addTo(map);
+	
+			var LeafIcon = L.Icon.extend({
+				options: {
+				iconAnchor:   [15, 30],
+				popupAnchor:  [0, -25],	
+				}});
+
+			var treeIcon = new LeafIcon({iconUrl: 'images/tree.png'});
+				footballIcon = new LeafIcon({iconUrl: 'images/football.png'});
+				sleepIcon = new LeafIcon({iconUrl: 'images/sleep.png'});
+				monumentIcon = new LeafIcon({iconUrl: 'images/monument.png'});
+				runIcon = new LeafIcon({iconUrl: 'images/run.png'});
+	
+			L.marker([47.240100, 39.710664], {icon: treeIcon}).addTo(map).bindPopup("<b>Парк!</b><br>Студенческий парк ДГТУ.");
+			L.marker([47.239373, 39.709114], {icon: footballIcon}).addTo(map).bindPopup("<b>Спортивная площадка.</b><br>Футбольное поле.");
+			L.marker([47.239417, 39.712735], {icon: sleepIcon}).addTo(map).bindPopup("<b>Общежите ДГТУ.</b><br>Общежитие №10.");
+			L.marker([47.239236, 39.710428], {icon: monumentIcon}).addTo(map).bindPopup("<b>Памятник.</b><br>Памятник студентам и преподавателям РИСХМА.");
+			L.marker([47.241057, 39.709432], {icon: runIcon}).addTo(map).bindPopup("<b>Спортивный легкоатлетический манеж ДГТУ.</b><br>это место, где есть возможность заниматься любым видом легкой атлетики.");
+			
+			L.control.mousePosition().addTo(map);
+			
+			measuringTool = new L.MeasuringTool(map);
+			measuringTool.enable();
+			
+		</script>
+	</body>
+</html>
